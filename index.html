@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冷冷不冷的黑心皮沙发工厂</title>
+    <style>
+        /* =========================================
+           BRUTALISM & RETRO GAMING STYLE RESET
+        ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #0a0a0a; /* 极黑底色 */
+            --text-color: #f0f0f0;
+            --bili-pink: #ff6699; /* B站粉 */
+            --bili-blue: #00a1d6; /* B站蓝 */
+            --warning-yellow: #fce205; /* 警告黄 - 粗犷主义爱用色 */
+            --border-thick: 4px solid var(--text-color);
+            --border-thin: 2px solid var(--text-color);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            /* 使用像素风或等宽字体带出代码感 */
+            font-family: 'Courier New', Courier, "PingFang SC", "Microsoft Yahei", monospace;
+            line-height: 1.6;
+            -webkit-font-smoothing: none; /* 关闭抗锯齿，增加像素粗糙感 */
+            padding-bottom: 5vh;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px; /* 赛博网格背景 */
+        }
+
+        a { color: var(--text-color); text-decoration: none; cursor: crosshair; }
+        
+        /* -------------------------------------
+           顶部横幅 - 警告条纹风
+        -------------------------------------- */
+        .support-banner {
+            position: sticky; top: 0; z-index: 1000; width: 100%;
+            border-bottom: var(--border-thick);
+            padding: 1rem 2rem;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--warning-yellow),
+                var(--warning-yellow) 10px,
+                #e5c800 10px,
+                #e5c800 20px
+            );
+            color: #000;
+            box-shadow: 0 8px 0px rgba(0,0,0,1);
+        }
+
+        /* 关键：宽度自适应标题文字宽度 */
+        .banner-inner {
+            display: inline-flex;
+            flex-direction: column;
+            width: fit-content;
+            gap: 0.6rem;
+        }
+
+        .banner-title {
+            font-size: 1rem; font-weight: 900; letter-spacing: 1px;
+            text-transform: uppercase;
+            white-space: nowrap; /* 电脑版保持单行 */
+        }
+
+        /* 按钮群组：宽度自动 100% 对齐上方标题 */
+        .link-group { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 0.8rem; 
+            width: 100%; 
+        }
+
+        /* 粗犷主义按钮 */
+        .brutal-btn {
+            width: 100%;
+            background-color: var(--bg-color);
+            color: var(--warning-yellow);
+            border: 2px solid #000;
+            padding: 0.4rem 0.8rem;
+            font-weight: bold;
+            font-family: inherit;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px #000;
+            transition: transform 0.1s, box-shadow 0.1s;
+            white-space: nowrap;
+        }
+
+        .brutal-btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #000;
+            background-color: var(--bili-pink);
+            color: #fff;
+        }
+
+        .brutal-btn:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0px #000;
+        }
+
+        /* -------------------------------------
+           主容器 & 头部
+        -------------------------------------- */
+        .container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; display: flex; flex-direction: column; gap: 4rem; }
+
+        header { 
+            display: flex; flex-direction: column; gap: 1.5rem; 
+            border: var(--border-thick);
+            padding: 2rem;
+            background-color: rgba(0,0,0,0.8);
+            box-shadow: 8px 8px 0px var(--bili-blue);
+        }
+        
+        h1 { 
+            font-size: 2.5rem; font-weight: 900; line-height: 1.2; 
+            text-shadow: 2px 2px 0px var(--bili-pink);
+        }
+        
+        .subtitle { 
+            font-size: 1.1rem; font-weight: bold; 
+            background-color: var(--text-color); color: var(--bg-color); 
+            display: inline-block; padding: 0.2rem 0.5rem; width: fit-content;
+        }
+
+        .kaomoji { color: var(--bili-pink); font-weight: bold; }
+
+        /* 社交连结网格 - 选单风格 */
+        .social-links { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem; }
+        .social-links a {
+            border: var(--border-thin); padding: 1rem;
+            display: flex; justify-content: space-between; align-items: center;
+            background-color: #1a1a1a;
+            font-weight: bold;
+            box-shadow: 4px 4px 0px var(--gray-color);
+            transition: all 0.1s;
+        }
+        .social-links a:hover {
+            background-color: var(--text-color); color: var(--bg-color);
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px var(--bili-pink);
+        }
+        
+        .link-label { font-size: 1.1rem; text-transform: uppercase; }
+        .link-desc { font-size: 0.85rem; opacity: 0.8; margin-left: 1rem; flex-grow: 1; font-family: "PingFang SC", sans-serif; }
+        .arrow { font-size: 1.2rem; font-weight: 900; }
+
+        /* -------------------------------------
+           自我介绍区块 (控制台视窗风格)
+        -------------------------------------- */
+        .statement-window {
+            border: var(--border-thick);
+            background-color: #000;
+            box-shadow: 8px 8px 0px var(--gray-color);
+        }
+
+        .window-header {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            display: flex; justify-content: space-between;
+        }
+
+        .window-content {
+            padding: 2.5rem;
+            font-size: 1.05rem; line-height: 1.9; text-align: justify;
+            font-family: "PingFang SC", "Microsoft Yahei", sans-serif;
+        }
+        
+        /* 日志区块标题 */
+        .log-section { margin-top: 2.5rem; }
+        .log-section h3 {
+            font-size: 1.15rem; color: var(--warning-yellow);
+            border-bottom: 1px dashed var(--gray-color);
+            padding-bottom: 0.5rem; margin-bottom: 1.2rem;
+            text-transform: uppercase; font-family: 'Courier New', Courier, monospace;
+        }
+
+        .window-content p { margin-bottom: 1rem; }
+        .window-content p:last-child { margin-bottom: 0; }
+        
+        .highlight-bg { 
+            background-color: var(--bili-pink); color: #fff; 
+            padding: 0 6px; font-weight: bold; 
+        }
+
+        .highlight-text { color: var(--warning-yellow); font-weight: bold; }
+
+        /* 奖励清单视觉优化 */
+        .reward-list {
+            list-style: none; display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;
+        }
+        .reward-list li {
+            background-color: rgba(255,255,255,0.05);
+            border-left: 4px solid var(--bili-pink);
+            padding: 1.2rem; font-size: 0.95rem;
+        }
+        .reward-icon { font-size: 1.3rem; margin-right: 0.5rem; vertical-align: middle; }
+
+        /* -------------------------------------
+           弹窗 (投喂专区)
+        -------------------------------------- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000; display: none; justify-content: center; align-items: center; padding: 1rem;
+        }
+        .modal-overlay.active { display: flex; }
+        
+        .modal-box {
+            background-color: var(--bg-color); color: var(--text-color);
+            border: var(--border-thick);
+            box-shadow: 10px 10px 0px var(--warning-yellow);
+            max-width: 500px; width: 100%; padding: 0; display: flex; flex-direction: column;
+        }
+        
+        .modal-header { 
+            background-color: var(--warning-yellow); color: #000;
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 1rem; border-bottom: var(--border-thick);
+        }
+        .modal-header h2 { font-size: 1.2rem; margin: 0; font-weight: 900; text-transform: uppercase; }
+        .close-btn { background: #000; color: var(--warning-yellow); border: 2px solid #000; width: 30px; height: 30px; font-weight: bold; cursor: pointer; }
+        .close-btn:hover { background: #fff; color: #000; }
+
+        .modal-body { padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+
+        /* 支付按钮排版 */
+        .pay-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        .pay-tab {
+            padding: 1rem 0.5rem; background: #111; color: var(--text-color);
+            border: var(--border-thin); font-size: 0.95rem; font-weight: bold;
+            cursor: pointer; text-align: center; text-transform: uppercase;
+        }
+        .pay-tab:hover, .pay-tab.active { background: var(--text-color); color: var(--bg-color); box-shadow: 4px 4px 0px var(--bili-blue); transform: translate(-2px, -2px); }
+
+        .qr-display {
+            border: var(--border-thin); background-color: #000;
+            padding: 1.5rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1rem;
+        }
+        .qr-display img { width: 220px; height: 220px; object-fit: contain; background: #fff; border: var(--border-thick); padding: 5px; image-rendering: pixelated; }
+        .qr-hint { font-size: 0.9rem; font-weight: bold; line-height: 1.6; }
+        
+        .jump-btn {
+            display: inline-block; padding: 1rem 2rem; background-color: var(--bili-pink); border: 2px solid #fff;
+            color: #fff; font-weight: 900; text-decoration: none; text-transform: uppercase;
+            box-shadow: 4px 4px 0px var(--text-color); transition: transform 0.1s;
+        }
+        .jump-btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0px var(--text-color); }
+
+        /* 手机唤起支付宝 APP 专用按钮样式 */
+        .app-launch-btn {
+            display: inline-block;
+            background-color: var(--bili-blue);
+            color: #fff;
+            border: 2px solid #000;
+            padding: 0.6rem 1.2rem;
+            font-weight: 900;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            box-shadow: 4px 4px 0px #000;
+            transition: transform 0.1s, box-shadow 0.1s;
+            text-decoration: none;
+            margin-top: 0.5rem;
+        }
+        .app-launch-btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #000;
+            background-color: #fff;
+            color: #000;
+        }
+
+        footer { border-top: var(--border-thick); padding-top: 2rem; font-weight: bold; text-align: center; text-transform: uppercase; }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; gap: 2rem; }
+            h1 { font-size: 2rem; }
+            .support-banner { padding: 1rem; }
+            .banner-inner { width: 100%; }
+            .banner-title { white-space: normal; }
+            .link-group { grid-template-columns: 1fr; width: 100%; }
+            .brutal-btn { width: 100%; text-align: center; }
+            .social-links a { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            .link-label { width: 100%; }
+            .link-desc { margin-left: 0; }
+            .window-content { padding: 1.5rem 1rem; }
+            .modal-box { box-shadow: 6px 6px 0px var(--warning-yellow); }
+            .pay-tabs { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 投喂横幅区 (警告条纹) -->
+    <div class="support-banner">
+        <div class="banner-inner">
+            <span class="banner-title">⚠ INITIATING SUPPORT PROTOCOL // 投喂快乐水和猫饭</span>
+            <div class="link-group">
+                <button class="brutal-btn" onclick="openModal('local')">🍞 国内通道 (支付宝/爱发电)</button>
+                <button class="brutal-btn" onclick="openModal('overseas')">🌍 海外时差党 (PayPal/刷卡)</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 头部 -->
+        <header>
+            <div class="subtitle">SYS.MSG: WELCOME TO THE BASE</div>
+            <h1>冷冷不冷的<br>黑心皮沙发工厂 <span class="kaomoji">_(:3」∠)_</span></h1>
+            <p style="font-weight: bold; opacity: 0.8;">[ 白天数字艺术家 / 深夜黑心厂长 ]</p>
+            
+            <div class="social-links">
+                <a href="https://space.bilibili.com/452768274" target="_blank">
+                    <span class="link-label">Bilibili 主站</span>
+                    <span class="link-desc">硬核冰盖生存 / 录播实况</span>
+                    <span class="arrow">►</span>
+                </a>
+                <a href="https://afdian.com/a/lenglengbuleng" target="_blank">
+                    <span class="link-label">爱发电</span>
+                    <span class="link-desc">支持独立游戏开发与 MOD 更新</span>
+                    <span class="arrow">►</span>
+                </a>
+                <a href="https://lonp.pages.dev" target="_blank">
+                    <span class="link-label">猫窝</span>
+                    <span class="link-desc">厂长的赛博猫爬架 - 数字媒体与国际展历</span>
+                    <span class="arrow">►</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- 碎碎念介绍 (视窗风格) -->
+        <section class="statement-window">
+            <div class="window-header">
+                <span>C:\LONLON\readme.txt</span>
+                <span>_ □ X</span>
+            </div>
+            <div class="window-content">
+                <p style="font-size: 1.15rem;">欢迎来到冷冷的秘密基地！快拉张椅子坐下，喝口热茶吧~ <span class="kaomoji">_(:3」∠)_</span></p>
+                
+                <div class="log-section">
+                    <h3>>_ IDENTITY & PROJECT // 我是谁？我在创作什么？</h3>
+                    <p>白天，我是游走在海外展厅与代码之间的<span class="highlight-bg">数字艺术家</span>；深夜，我则化身沉迷在零下数十度极寒冰盖里的<span class="highlight-bg">黑心皮沙发厂长</span>。</p>
+                    <p>目前，我不仅致力于《环世界》的 C# 底层逻辑补丁开发，在 B 站直播【极端困难/不读档】的硬核受虐求生；同时，我也正在<span class="highlight-text">筹备开发一款属于自己的“模拟类独立游戏”！</span></p>
+                </div>
+
+                <div class="log-section">
+                    <h3>>_ INITIATE SUPPORT // 为什么启动「支付宝投餵」和「爱发电」？</h3>
+                    <p>随着独立维护 C# 补丁的工作量日益庞大，加上新游戏开发所需的庞大精力与成本（经常深夜撸代码到头秃），开启投餵计画是希望在这漫长的“赛博求生与独立游戏筑梦”之旅中，能得到大家的一点点支持。</p>
+                    <p>你们投餵的每一口快乐水，都将直接化为厂长维持深夜除错的咖啡因浓度，更是<span class="highlight-text">支持我将这款模拟游戏从最初的纸上原型变成现实的最大动力！</span>
+                        当然，要是能顺便投餵一口猫饭，不但喂饱了这隻深夜加班的秃头小猫，还顺便包养了身边的两隻小猫咪，大概能一边呼噜噜一边当场把 Bug 全给修了吧～</p>
+                </div>
+
+                <div class="log-section">
+                    <h3>>_ REWARDS PROTOCOL // 赞助者可以得到什么奖励？</h3>
+                    <ul class="reward-list">
+                        <li><span class="reward-icon">☕</span> <strong>【厂长的冰盖纯电费】</strong><br>获得我发自内心的感谢，以及在极寒冬日里的一丝温暖！</li>
+                        <li><span class="reward-icon">🛠️</span> <strong>【专属动态与开发日志】</strong><br>解锁我在爱发电发布的幕后除错日常、硬核生存心得，以及未来新模拟游戏的专属开发日志（Devlog）、早期概念图纸与进度分享。</li>
+                        <li><span class="reward-icon">🎮</span> <strong>【未来游戏抢先看】</strong><br>等我的模拟游戏进入可游玩阶段后，在这里发电支持过厂长的<span class="highlight-bg">“精神股东”</span>们，绝对会有优先参与内部测试的机会啦！</li>
+                    </ul>
+                </div>
+                
+                <p style="margin-top: 3rem; text-align: center; color: var(--gray-color);">不管是刚被我的代码拯救了存档的硬核殖民长官、在直播间安静挂机听风雪的同好、在展览中对我的录像产生共鸣的观众，还是期待我未来独立游戏的新朋友——</p>
+                <p style="text-align: center; font-weight: bold; font-size: 1.2rem; color: var(--bili-pink); margin-top: 0.5rem;">
+                    都非常感谢你能来到这里抱团取暖！<span class="kaomoji">(=・ω・=)m</span>
+                </p>
+            </div>
+        </section>
+
+        <footer>
+            <p>点个关注不迷路，我们直播间见啦！<br>
+            <span style="font-weight: 300;">&copy; 2026 lonlon. SYSTEM NORMAL.</span></p>
+        </footer>
+    </div>
+
+    <!-- 投喂弹窗 -->
+    <div id="donateModal" class="modal-overlay" onclick="if(event.target === this) closeModal()">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2>☕ FEED THE FACTORY</h2>
+                <button class="close-btn" onclick="closeModal()">X</button>
+            </div>
+
+            <div class="modal-body">
+                <div id="local-tabs" style="display: none;">
+                    <div class="pay-tabs">
+                        <button class="pay-tab active" onclick="switchPay('alipay', this)">[ 支付宝 ]</button>
+                        <button class="pay-tab" onclick="switchPay('afdian', this)">[ 爱发电 ]</button>
+                    </div>
+                </div>
+
+                <div id="overseas-tabs" style="display: none;">
+                    <div class="pay-tabs">
+                        <button class="pay-tab active" onclick="switchPay('paypal', this)">[ PayPal ]</button>
+                        <button class="pay-tab" onclick="switchPay('newebpay', this)">[ 蓝新刷卡 ]</button>
+                    </div>
+                </div>
+
+                <div class="qr-display">
+                    <img id="qr-img" src="" alt="收款码">
+                    
+                    <!-- 手机端唤起支付寶 APP 专用按钮 -->
+                    <div id="alipay-btn-wrap" style="display:none; width: 100%;">
+                        <a href="https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4" target="_blank" class="app-launch-btn">📱 手机端点击唤起支付宝 APP ↗</a>
+                    </div>
+
+                    <!-- 纯外连专用跳转按钮 (爱发电 / PayPal / 蓝新) -->
+                    <div id="btn-wrap" style="display:none; padding: 1rem 0;">
+                        <a id="jump-link" href="#" target="_blank" class="jump-btn">LAUNCH LINK ↗</a>
+                    </div>
+                    <p id="qr-hint" class="qr-hint"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 收款渠道设定
+        const PAY_METHODS = {
+            alipay: {
+                type: 'qr',
+                img: 'images/qr-alipay.jpg', // 你的支付宝收款码
+                hint: '打开支付宝扫一扫上方二维码。<br>金额不限，感谢你的投喂与支持！(╭￣3￣)╭♡'
+            },
+            afdian: {
+                type: 'link',
+                url: 'https://afdian.com/a/lenglengbuleng', // 你的爱发电地址
+                hint: '推荐使用「爱发电」！支持微信、支付宝，还可以解锁专属更新动态和製作游戏抢先体验喔！'
+            },
+            paypal: {
+                type: 'link',
+                url: 'https://ko-fi.com/lonsthx',
+                hint: '海外党请点击上方按钮前往 Ko-fi，支持 PayPal 与国际信用卡。<br>Every little bit helps! ☕'
+            },
+            newebpay: {
+                type: 'link',
+                url: 'https://你的蓝新网址', // 蓝新地址
+                hint: '通过蓝新金流安全支付，支持跨国信用卡与 Apple Pay。'
+            }
+        };
+
+        function openModal(region) {
+            document.getElementById('donateModal').classList.add('active');
+            const localTabs = document.getElementById('local-tabs');
+            const overseasTabs = document.getElementById('overseas-tabs');
+            
+            // 重置按钮状态
+            document.querySelectorAll('.pay-tab').forEach(btn => btn.classList.remove('active'));
+
+            if (region === 'local') {
+                localTabs.style.display = 'block';
+                overseasTabs.style.display = 'none';
+                localTabs.querySelector('.pay-tab').classList.add('active');
+                switchPay('alipay');
+            } else {
+                localTabs.style.display = 'none';
+                overseasTabs.style.display = 'block';
+                overseasTabs.querySelector('.pay-tab').classList.add('active');
+                switchPay('paypal');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('donateModal').classList.remove('active');
+        }
+
+        function switchPay(method, btnEl) {
+            if (btnEl) {
+                document.querySelectorAll('.pay-tab').forEach(btn => btn.classList.remove('active'));
+                btnEl.classList.add('active');
+            }
+
+            const data = PAY_METHODS[method];
+            const imgEl = document.getElementById('qr-img');
+            const btnWrap = document.getElementById('btn-wrap');
+            const alipayBtnWrap = document.getElementById('alipay-btn-wrap');
+            const jumpLink = document.getElementById('jump-link');
+            const hintEl = document.getElementById('qr-hint');
+
+            if (data.type === 'link') {
+                imgEl.style.display = 'none';
+                if (alipayBtnWrap) alipayBtnWrap.style.display = 'none';
+                btnWrap.style.display = 'block';
+                jumpLink.href = data.url;
+            } else {
+                imgEl.style.display = 'block';
+                btnWrap.style.display = 'none';
+                imgEl.src = data.img;
+                // 若为支付宝，则额外显示手机端唤起按钮
+                if (alipayBtnWrap) {
+                    alipayBtnWrap.style.display = (method === 'alipay') ? 'block' : 'none';
+                }
+            }
+            hintEl.innerHTML = data.hint;
+        }
+    </script>
+</body>
+</html>
