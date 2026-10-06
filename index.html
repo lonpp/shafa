@@ -2,386 +2,740 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>冷冷不冷的黑心皮沙发工厂</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>冷冷不冷的皮沙发工厂</title>
     <style>
         /* =========================================
-           BRUTALISM & RETRO GAMING STYLE RESET
+           CYBERPUNK & NEON TRICOLOR RESET
         ========================================= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg-color: #0a0a0a; /* 极黑底色 */
-            --text-color: #f0f0f0;
-            --bili-pink: #ff6699; /* B站粉 */
-            --bili-blue: #00a1d6; /* B站蓝 */
-            --warning-yellow: #fce205; /* 警告黄 - 粗犷主义爱用色 */
-            --border-thick: 4px solid var(--text-color);
-            --border-thin: 2px solid var(--text-color);
+            --bg-color: #0b0710; 
+            --surface-color: #150d1a;
+            --text-soft: #f4dce4; 
+            --text-muted: #a68a96;
+            --cyber-pink: #ff2a7f; 
+            --cyber-blue: #00f0ff; 
+            --cyber-yellow: #ffcc00; 
+            --couch-crimson: #d91153; 
+            --border-thick: 2px solid var(--cyber-pink);
+            --border-thin: 1px solid rgba(255, 42, 127, 0.4);
         }
 
-        html { scroll-behavior: smooth; }
+        html { 
+            scroll-behavior: smooth; 
+            width: 100%;
+            overflow-x: hidden;
+        }
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-color);
-            /* 使用像素风或等宽字体带出代码感 */
-            font-family: 'Courier New', Courier, "PingFang SC", "Microsoft Yahei", monospace;
-            line-height: 1.6;
-            -webkit-font-smoothing: none; /* 关闭抗锯齿，增加像素粗糙感 */
-            padding-bottom: 5vh;
+            color: var(--text-soft);
+            font-family: 'JetBrains Mono', 'Courier New', 'PingFang SC', 'Microsoft YaHei', monospace;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 8vh;
+            width: 100%;
+            overflow-x: hidden;
             background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 20px 20px; /* 赛博网格背景 */
+                linear-gradient(rgba(255, 42, 127, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.04) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
 
-        a { color: var(--text-color); text-decoration: none; cursor: crosshair; }
-        
-        /* -------------------------------------
-           顶部横幅 - 警告条纹风
-        -------------------------------------- */
+        a { color: var(--cyber-pink); text-decoration: none; cursor: crosshair; transition: all 0.2s;}
+        a:hover { color: var(--cyber-blue); text-shadow: 0 0 8px var(--cyber-blue); }
+
+        /* =========================================
+           TOP WARNING BANNER 
+        ========================================= */
         .support-banner {
-            position: sticky; top: 0; z-index: 1000; width: 100%;
-            border-bottom: var(--border-thick);
-            padding: 1rem 2rem;
-            background: repeating-linear-gradient(
-                45deg,
-                var(--warning-yellow),
-                var(--warning-yellow) 10px,
-                #e5c800 10px,
-                #e5c800 20px
-            );
-            color: #000;
-            box-shadow: 0 8px 0px rgba(0,0,0,1);
+            position: fixed !important; 
+            top: 0 !important; 
+            left: 0 !important; 
+            right: 0 !important;
+            width: 100% !important;
+            z-index: 9999 !important; 
+            border-bottom: 2px solid var(--cyber-pink);
+            background: rgba(11, 7, 16, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 0.95rem 1.8rem;
+            box-shadow: 0 4px 20px rgba(255, 42, 127, 0.3), 0 2px 0px rgba(0, 240, 255, 0.3);
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
         }
 
-        /* 关键：宽度自适应标题文字宽度 */
         .banner-inner {
-            display: inline-flex;
-            flex-direction: column;
-            width: fit-content;
-            gap: 0.6rem;
+            max-width: 1040px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center; gap: 1.2rem; flex-wrap: wrap;
         }
 
         .banner-title {
-            font-size: 1rem; font-weight: 900; letter-spacing: 1px;
-            text-transform: uppercase;
-            white-space: nowrap; /* 电脑版保持单行 */
+            font-size: 1.05rem; font-weight: 900; letter-spacing: 1px;
+            color: var(--cyber-pink);
+            text-shadow: 0 0 10px rgba(255, 42, 127, 0.6);
+            display: flex; flex-direction: column; line-height: 1.25;
+        }
+        
+        .banner-warning-sign {
+            color: var(--cyber-yellow);
+            text-shadow: 0 0 8px var(--cyber-yellow);
+            margin-left: 4px;
+            font-size: 1.15rem;
         }
 
-        /* 按钮群组：宽度自动 100% 对齐上方标题 */
-        .link-group { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 0.8rem; 
-            width: 100%; 
+        .link-group { display: flex; gap: 1.1rem; flex-wrap: wrap; }
+
+        .cyber-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            background-color: transparent; 
+            color: var(--cyber-pink);
+            border: 1px solid var(--cyber-pink); 
+            padding: 0.62rem 1.25rem;
+            font-weight: 900; font-family: inherit; font-size: 0.92rem;
+            cursor: pointer; 
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            transition: all 0.15s ease;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(255, 42, 127, 0.1);
+            animation: pulse-border 2.5s infinite;
         }
 
-        /* 粗犷主义按钮 */
-        .brutal-btn {
-            width: 100%;
-            background-color: var(--bg-color);
-            color: var(--warning-yellow);
-            border: 2px solid #000;
-            padding: 0.4rem 0.8rem;
-            font-weight: bold;
-            font-family: inherit;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            cursor: pointer;
-            box-shadow: 4px 4px 0px #000;
-            transition: transform 0.1s, box-shadow 0.1s;
-            white-space: nowrap;
+        .btn-water-icon {
+            width: auto;
+            height: 25px;
+            object-fit: contain;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 3px rgba(255, 42, 127, 0.4));
+        }
+        
+        @keyframes pulse-border {
+            0% { box-shadow: inset 0 0 5px rgba(255, 42, 127, 0.2), 0 0 5px rgba(0, 240, 255, 0.2); }
+            50% { box-shadow: inset 0 0 15px rgba(0, 240, 255, 0.4), 0 0 12px rgba(255, 42, 127, 0.5); }
+            100% { box-shadow: inset 0 0 5px rgba(255, 42, 127, 0.2), 0 0 5px rgba(0, 240, 255, 0.2); }
         }
 
-        .brutal-btn:hover {
-            transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0px #000;
-            background-color: var(--bili-pink);
-            color: #fff;
+        .cyber-btn:hover {
+            background-color: var(--cyber-pink); color: #000;
+            box-shadow: 0 0 20px var(--cyber-pink);
+            border-color: transparent;
         }
 
-        .brutal-btn:active {
-            transform: translate(4px, 4px);
-            box-shadow: 0px 0px 0px #000;
+        .cyber-btn:hover .btn-water-icon {
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
         }
 
-        /* -------------------------------------
-           主容器 & 头部
-        -------------------------------------- */
-        .container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; display: flex; flex-direction: column; gap: 4rem; }
+        /* =========================================
+           MAIN CONTAINER & HEADER
+        ========================================= */
+        .container { 
+            max-width: 960px; 
+            margin: 0 auto; 
+            padding: calc(88px + 2.5rem) 1.5rem 3rem 1.5rem; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 3.5rem; 
+        }
 
         header { 
-            display: flex; flex-direction: column; gap: 1.5rem; 
-            border: var(--border-thick);
-            padding: 2rem;
-            background-color: rgba(0,0,0,0.8);
-            box-shadow: 8px 8px 0px var(--bili-blue);
+            border: var(--border-thick); padding: 2.5rem;
+            background-color: var(--surface-color);
+            position: relative;
+            box-shadow: 10px 10px 0px rgba(255, 42, 127, 0.2), -2px -2px 0px rgba(0, 240, 255, 0.2);
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
         }
         
+        .sys-tag { 
+            font-size: 0.85rem; font-weight: 900; 
+            background-color: var(--cyber-pink); color: #000; 
+            display: inline-block; padding: 0.2rem 0.6rem; margin-bottom: 1rem;
+            box-shadow: 0 0 10px var(--cyber-pink);
+            letter-spacing: 0.5px;
+        }
+
         h1 { 
-            font-size: 2.5rem; font-weight: 900; line-height: 1.2; 
-            text-shadow: 2px 2px 0px var(--bili-pink);
+            font-size: 2.3rem; font-weight: 900; line-height: 1.2; 
+            color: #fff; text-shadow: 0 0 8px var(--cyber-pink), 2px 2px 0px var(--cyber-blue); 
+            letter-spacing: -0.5px; margin-bottom: 0.5rem;
         }
+
+        .tagline {
+            font-size: 0.95rem; color: var(--text-muted);
+            border-left: 3px solid var(--cyber-blue); padding-left: 1rem;
+            line-height: 1.8;
+        }
+
+        .social-matrix {
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 1.2rem; 
+            margin-top: 1.5rem;
+        }
+
+        .channel-card {
+            border: var(--border-thin); padding: 1.2rem; background-color: #0d0610;
+            display: flex; flex-direction: column; justify-content: flex-start; gap: 0.4rem;
+            transition: all 0.15s ease;
+            position: relative; overflow: hidden;
+            height: 100%;
+            min-height: 140px;
+        }
+        .channel-card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.15), transparent);
+            transition: 0.5s;
+        }
+        .channel-card:hover::before { left: 100%; }
+        .channel-card:hover {
+            border-color: var(--cyber-blue); box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+            transform: translateY(-3px);
+        }
+
+        .channel-top { display: flex; justify-content: space-between; align-items: center; }
+        .platform-name { font-weight: 900; font-size: 1.1rem; color: var(--text-soft); }
         
-        .subtitle { 
-            font-size: 1.1rem; font-weight: bold; 
-            background-color: var(--text-color); color: var(--bg-color); 
-            display: inline-block; padding: 0.2rem 0.5rem; width: fit-content;
-        }
-
-        .kaomoji { color: var(--bili-pink); font-weight: bold; }
-
-        /* 社交连结网格 - 选单风格 */
-        .social-links { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem; }
-        .social-links a {
-            border: var(--border-thin); padding: 1rem;
-            display: flex; justify-content: space-between; align-items: center;
-            background-color: #1a1a1a;
-            font-weight: bold;
-            box-shadow: 4px 4px 0px var(--gray-color);
-            transition: all 0.1s;
-        }
-        .social-links a:hover {
-            background-color: var(--text-color); color: var(--bg-color);
-            transform: translate(-2px, -2px);
-            box-shadow: 6px 6px 0px var(--bili-pink);
-        }
+        .badge { font-size: 0.7rem; padding: 0.15rem 0.45rem; font-weight: 800; border: 1px solid var(--cyber-pink); color: var(--cyber-pink); }
+        .badge-blue { border-color: var(--cyber-blue); color: var(--cyber-blue); text-shadow: 0 0 6px var(--cyber-blue); }
         
-        .link-label { font-size: 1.1rem; text-transform: uppercase; }
-        .link-desc { font-size: 0.85rem; opacity: 0.8; margin-left: 1rem; flex-grow: 1; font-family: "PingFang SC", sans-serif; }
-        .arrow { font-size: 1.2rem; font-weight: 900; }
+        .channel-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; margin-top: 0.3rem;}
 
-        /* -------------------------------------
-           自我介绍区块 (控制台视窗风格)
-        -------------------------------------- */
-        .statement-window {
-            border: var(--border-thick);
-            background-color: #000;
-            box-shadow: 8px 8px 0px var(--gray-color);
+        /* 修改後的排版順序 */
+        .card-shop     { order: 1; grid-column: 1; }
+        .card-bilibili { order: 2; grid-column: 2; }
+        .card-sub      { order: 3; grid-column: 1; }
+
+        /* =========================================
+           INSTAGRAM & PORTFOLIO 
+        ========================================= */
+        .sub-links-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.2rem 0.2rem;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .terminal-line-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.82rem;
+            line-height: 1.4;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            width: fit-content;
+        }
+
+        .terminal-line-link:hover {
+            color: var(--text-soft);
+            transform: translateX(4px);
+        }
+        .terminal-line-link:hover .term-name {
+            color: #fff;
+            text-shadow: 0 0 8px var(--cyber-blue);
+        }
+
+        .term-prefix {
+            font-weight: 900;
+            font-size: 0.82rem;
+        }
+        .pink-prefix { color: var(--cyber-pink); text-shadow: 0 0 6px rgba(255, 42, 127, 0.6); }
+        .blue-prefix { color: var(--cyber-blue); text-shadow: 0 0 6px rgba(0, 240, 255, 0.6); }
+
+        .term-name {
+            font-weight: 800;
+            color: var(--text-soft);
+            letter-spacing: 0.5px;
+        }
+
+        .term-desc {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+        }
+
+        /* =========================================
+           TERMINAL MANIFESTO 
+        ========================================= */
+        .terminal-window {
+            border: var(--border-thick); background-color: #08040a;
+            position: relative;
+        }
+        .terminal-window::after {
+            content: ''; position: absolute; bottom: -5px; right: -5px; width: 100%; height: 100%;
+            border: 1px solid var(--cyber-blue); z-index: -1;
         }
 
         .window-header {
-            background-color: var(--text-color);
-            color: var(--bg-color);
-            padding: 0.5rem 1rem;
-            font-weight: bold;
-            display: flex; justify-content: space-between;
+            background-color: rgba(255, 42, 127, 0.1); color: var(--cyber-pink);
+            border-bottom: var(--border-thin);
+            padding: 0.6rem 1.2rem; font-weight: 900; 
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.85rem; letter-spacing: 0.5px;
+            gap: 0.5rem;
         }
 
-        .window-content {
-            padding: 2.5rem;
-            font-size: 1.05rem; line-height: 1.9; text-align: justify;
-            font-family: "PingFang SC", "Microsoft Yahei", sans-serif;
+        .window-path {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-width: 0;
+            color: var(--cyber-blue);
+            text-shadow: 0 0 6px rgba(0, 240, 255, 0.4);
         }
-        
-        /* 日志区块标题 */
-        .log-section { margin-top: 2.5rem; }
+
+        .window-mode {
+            white-space: nowrap;
+            flex-shrink: 0;
+            color: var(--cyber-blue);
+            text-shadow: 0 0 6px rgba(0, 240, 255, 0.5);
+        }
+
+        .window-content { padding: 2.2rem; font-size: 0.98rem; line-height: 1.9; }
+
+        .log-section { margin-bottom: 2.8rem; }
+        .log-section:last-child { margin-bottom: 0; }
+
         .log-section h3 {
-            font-size: 1.15rem; color: var(--warning-yellow);
-            border-bottom: 1px dashed var(--gray-color);
-            padding-bottom: 0.5rem; margin-bottom: 1.2rem;
-            text-transform: uppercase; font-family: 'Courier New', Courier, monospace;
+            font-size: 1.15rem; color: var(--cyber-blue);
+            border-bottom: 1px dashed rgba(0, 240, 255, 0.3); padding-bottom: 0.4rem; margin-bottom: 1rem;
+            text-shadow: 0 0 5px rgba(0, 240, 255, 0.5);
         }
 
-        .window-content p { margin-bottom: 1rem; }
-        .window-content p:last-child { margin-bottom: 0; }
-        
-        .highlight-bg { 
-            background-color: var(--bili-pink); color: #fff; 
-            padding: 0 6px; font-weight: bold; 
+        .bilingual-block { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .lang-zh { color: var(--text-soft); font-weight: 500;}
+
+        .highlight-neon { background-color: rgba(255, 42, 127, 0.2); color: var(--cyber-pink); padding: 0 6px; border: 1px solid var(--cyber-pink); font-weight: bold; }
+        .highlight-blue { color: var(--cyber-blue); font-weight: bold; text-shadow: 0 0 5px var(--cyber-blue); }
+
+        .cat-alert {
+            background: rgba(255, 204, 0, 0.05); 
+            border-left: 4px solid var(--cyber-yellow);
+            border-right: 1px solid rgba(255, 204, 0, 0.2);
+            padding: 1.2rem; margin: 1.8rem 0; font-size: 0.9rem;
+            position: relative;
+        }
+        .cat-alert-title { 
+            font-weight: 900; color: var(--cyber-yellow); margin-bottom: 0.5rem; display: block; letter-spacing: 0.5px;
+            text-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
         }
 
-        .highlight-text { color: var(--warning-yellow); font-weight: bold; }
-
-        /* 奖励清单视觉优化 */
-        .reward-list {
-            list-style: none; display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;
+        .water-showcase-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2.2rem 0 1rem 0;
+            width: 100%;
         }
-        .reward-list li {
-            background-color: rgba(255,255,255,0.05);
-            border-left: 4px solid var(--bili-pink);
-            padding: 1.2rem; font-size: 0.95rem;
-        }
-        .reward-icon { font-size: 1.3rem; margin-right: 0.5rem; vertical-align: middle; }
 
-        /* -------------------------------------
-           弹窗 (投喂专区)
-        -------------------------------------- */
+        .water-showcase-box {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            min-height: 280px;
+            background: rgba(11, 7, 16, 0.85);
+            border: 1px solid rgba(0, 240, 255, 0.4);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.2), inset 0 0 15px rgba(0, 240, 255, 0.08);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem 1rem;
+            overflow: hidden;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+
+        .hud-corner {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-color: var(--cyber-blue);
+            pointer-events: none;
+        }
+        .hud-tl { top: -1px; left: -1px; border-top: 2px solid var(--cyber-blue); border-left: 2px solid var(--cyber-blue); }
+        .hud-tr { top: -1px; right: -1px; border-top: 2px solid var(--cyber-blue); border-right: 2px solid var(--cyber-blue); }
+        .hud-bl { bottom: -1px; left: -1px; border-bottom: 2px solid var(--cyber-blue); border-left: 2px solid var(--cyber-blue); }
+        .hud-br { bottom: -1px; right: -1px; border-bottom: 2px solid var(--cyber-blue); border-right: 2px solid var(--cyber-blue); }
+
+        @keyframes cyber-blue-aura {
+            0% { filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.35)) drop-shadow(0 0 16px rgba(0, 240, 255, 0.15)); }
+            50% { filter: drop-shadow(0 0 18px rgba(0, 240, 255, 0.8)) drop-shadow(0 0 35px rgba(0, 240, 255, 0.45)); }
+            100% { filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.35)) drop-shadow(0 0 16px rgba(0, 240, 255, 0.15)); }
+        }
+
+        .water-img-lg {
+            width: auto;
+            max-width: 85%;
+            height: auto;
+            max-height: 250px;
+            object-fit: contain;
+            display: block;
+            image-rendering: pixelated;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            animation: cyber-blue-aura 5.5s infinite ease-in-out;
+        }
+
+        /* =========================================
+           MODAL & MULTI-REGION DONATION
+        ========================================= */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            z-index: 2000; display: none; justify-content: center; align-items: center; padding: 1rem;
+            background-color: rgba(5, 2, 8, 0.95); backdrop-filter: blur(8px);
+            z-index: 20000; display: none; justify-content: center; align-items: center; padding: 1rem;
         }
         .modal-overlay.active { display: flex; }
         
         .modal-box {
-            background-color: var(--bg-color); color: var(--text-color);
-            border: var(--border-thick);
-            box-shadow: 10px 10px 0px var(--warning-yellow);
-            max-width: 500px; width: 100%; padding: 0; display: flex; flex-direction: column;
+            background-color: var(--bg-color); color: var(--text-soft); border: 2px solid var(--cyber-blue);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.2); max-width: 540px; width: 100%; padding: 0;
+            display: flex; flex-direction: column;
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+            max-height: 90vh;
+            overflow-y: auto;
         }
+        .modal-box::-webkit-scrollbar { width: 6px; }
+        .modal-box::-webkit-scrollbar-track { background: var(--bg-color); }
+        .modal-box::-webkit-scrollbar-thumb { background: var(--cyber-pink); }
         
         .modal-header { 
-            background-color: var(--warning-yellow); color: #000;
+            background-color: rgba(0, 240, 255, 0.1); color: var(--cyber-blue);
+            border-bottom: 1px solid var(--cyber-blue);
             display: flex; justify-content: space-between; align-items: center; 
-            padding: 1rem; border-bottom: var(--border-thick);
+            padding: 1rem 1.4rem;
         }
-        .modal-header h2 { font-size: 1.2rem; margin: 0; font-weight: 900; text-transform: uppercase; }
-        .close-btn { background: #000; color: var(--warning-yellow); border: 2px solid #000; width: 30px; height: 30px; font-weight: bold; cursor: pointer; }
-        .close-btn:hover { background: #fff; color: #000; }
+        .modal-header h2 { font-size: 1rem; margin: 0; font-weight: 900; text-shadow: 0 0 5px var(--cyber-blue); }
+        .close-btn { 
+            background: transparent; color: var(--cyber-blue); border: none; 
+            font-size: 1.5rem; font-weight: 900; cursor: pointer; transition: 0.2s;
+        }
+        .close-btn:hover { color: var(--cyber-pink); text-shadow: 0 0 10px var(--cyber-pink); transform: scale(1.1);}
 
-        .modal-body { padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+        .modal-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
 
-        /* 支付按钮排版 */
-        .pay-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        .pay-tabs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.6rem;
+        }
         .pay-tab {
-            padding: 1rem 0.5rem; background: #111; color: var(--text-color);
-            border: var(--border-thin); font-size: 0.95rem; font-weight: bold;
-            cursor: pointer; text-align: center; text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0.6rem 0.3rem;
+            min-height: 52px;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-soft);
+            border: 1px solid rgba(0, 240, 255, 0.4);
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: bold;
+            cursor: pointer;
+            clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+            transition: all 0.15s ease;
+            text-align: center;
+            line-height: 1.3;
         }
-        .pay-tab:hover, .pay-tab.active { background: var(--text-color); color: var(--bg-color); box-shadow: 4px 4px 0px var(--bili-blue); transform: translate(-2px, -2px); }
+        .pay-tab:hover {
+            background: rgba(0, 240, 255, 0.1);
+            border-color: var(--cyber-blue);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+            color: #fff;
+        }
+        .pay-tab.active { 
+            background: rgba(255, 42, 127, 0.25) !important; 
+            color: #fff !important; 
+            border-color: var(--cyber-pink) !important; 
+            box-shadow: 0 0 12px rgba(255, 42, 127, 0.4);
+        }
+
+        @keyframes modal-bg-aura {
+            0% { opacity: 0.5; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.35)) drop-shadow(0 0 25px rgba(0, 240, 255, 0.25)); }
+            50% { opacity: 0.5; filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.7)) drop-shadow(0 0 45px rgba(0, 240, 255, 0.45)); }
+            100% { opacity: 0.5; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.25)) drop-shadow(0 0 25px rgba(0, 240, 255, 0.15)); }
+        }
 
         .qr-display {
-            border: var(--border-thin); background-color: #000;
-            padding: 1.5rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1rem;
-        }
-        .qr-display img { width: 220px; height: 220px; object-fit: contain; background: #fff; border: var(--border-thick); padding: 5px; image-rendering: pixelated; }
-        .qr-hint { font-size: 0.9rem; font-weight: bold; line-height: 1.6; }
-        
-        .jump-btn {
-            display: inline-block; padding: 1rem 2rem; background-color: var(--bili-pink); border: 2px solid #fff;
-            color: #fff; font-weight: 900; text-decoration: none; text-transform: uppercase;
-            box-shadow: 4px 4px 0px var(--text-color); transition: transform 0.1s;
-        }
-        .jump-btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0px var(--text-color); }
-
-        /* 手机唤起支付宝 APP 专用按钮样式 */
-        .app-launch-btn {
-            display: inline-block;
-            background-color: var(--bili-blue);
-            color: #fff;
-            border: 2px solid #000;
-            padding: 0.6rem 1.2rem;
-            font-weight: 900;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            box-shadow: 4px 4px 0px #000;
-            transition: transform 0.1s, box-shadow 0.1s;
-            text-decoration: none;
-            margin-top: 0.5rem;
-        }
-        .app-launch-btn:hover {
-            transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0px #000;
-            background-color: #fff;
-            color: #000;
+            position: relative;
+            border: 1px dashed var(--cyber-blue); 
+            background-color: rgba(0, 0, 0, 0); 
+            padding: 1.5rem 1.4rem; 
+            text-align: center; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            overflow: hidden;
+            height: 520px;
+            min-height: 520px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        footer { border-top: var(--border-thick); padding-top: 2rem; font-weight: bold; text-align: center; text-transform: uppercase; }
+        .qr-display::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('images/happy-water-lg.gif');
+            background-repeat: no-repeat; background-position: center center; background-size: contain;
+            pointer-events: none; z-index: 0;
+            animation: modal-bg-aura 5.5s infinite ease-in-out;
+            transition: opacity 0.3s ease;
+        }
+
+        .qr-display:hover::before { opacity: 0.32; }
+
+        .qr-display img#supportQrImage {
+            position: absolute;
+            top: 2.5rem; left: 50%; transform: translateX(-50%);
+            width: 175px; height: 175px; object-fit: contain;
+            background-color: #ffffff; border: 2px solid var(--cyber-pink);
+            padding: 0.4rem; box-shadow: 0 0 15px rgba(255, 42, 127, 0.3); z-index: 2;
+        }
+
+        #supportQrHint { font-size: 0.85rem; color: var(--text-soft); line-height: 1.7; width: 100%; z-index: 1; }
+
+        .qr-display.mode-qr #supportQrHint {
+            position: absolute; top: calc(2.5rem + 175px); bottom: calc(2.5rem + 44px);
+            left: 1.4rem; right: 1.4rem; width: auto;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin: 0; padding: 0.5rem 0;
+        }
+
+        .qr-display.mode-link #supportQrHint {
+            position: absolute; top: 2.5rem; bottom: calc(2.5rem + 44px);
+            left: 1.4rem; right: 1.4rem; width: auto;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin: 0; padding: 0.5rem 0;
+        }
+
+        #actionBtn {
+            position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+            width: calc(100% - 2.8rem); max-width: 320px; height: 44px;
+            display: inline-flex; align-items: center; justify-content: center;
+            box-sizing: border-box; white-space: nowrap; font-family: inherit; font-size: 0.86rem; font-weight: bold;
+            text-decoration: none; cursor: pointer;
+            clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+            background-color: rgba(255, 42, 127, 0.15); color: var(--cyber-pink); border: 1px solid var(--cyber-pink);
+            box-shadow: 0 0 10px rgba(255, 42, 127, 0.2); transition: all 0.15s ease; z-index: 5;
+        }
+
+        #actionBtn:hover { background-color: var(--cyber-pink); color: #000; box-shadow: 0 0 15px var(--cyber-pink); }
+
+        .support-form { display: flex; flex-direction: column; gap: 1rem; border-top: 1px dashed rgba(0, 240, 255, 0.3); padding-top: 1.2rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.82rem; font-weight: bold; color: var(--text-soft); }
+        .form-group input, .form-group textarea {
+            background-color: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 42, 127, 0.4);
+            color: var(--text-soft); padding: 0.65rem; font-family: inherit; font-size: 0.88rem; resize: vertical; transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--cyber-blue); box-shadow: 0 0 8px rgba(0, 240, 255, 0.4); background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        footer { border-top: var(--border-thin); padding-top: 2rem; text-align: center; font-size: 0.85rem; color: var(--text-muted); }
+
+        .back-to-top {
+            position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
+            background: rgba(11, 7, 16, 0.75); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+            color: var(--cyber-blue); border: 1px solid var(--cyber-blue); padding: 0.5rem 0.9rem;
+            font-family: inherit; font-size: 0.85rem; font-weight: 900; letter-spacing: 1px;
+            cursor: pointer; opacity: 0; pointer-events: none;
+            clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.25); transition: all 0.25s ease;
+        }
+        .back-to-top.visible { opacity: 0.85; pointer-events: auto; }
+        .back-to-top:hover { opacity: 1; background-color: var(--cyber-blue); color: #000; box-shadow: 0 0 18px var(--cyber-blue); transform: translateY(-2px); }
+
+        @keyframes card-pulse {
+            0% { box-shadow: inset 0 0 6px rgba(255, 42, 127, 0.15), 0 0 6px rgba(255, 42, 127, 0.2); border-color: rgba(255, 42, 127, 0.4); }
+            50% { box-shadow: inset 0 0 14px rgba(0, 240, 255, 0.3), 0 0 15px rgba(0, 240, 255, 0.35); border-color: var(--cyber-blue); }
+            100% { box-shadow: inset 0 0 6px rgba(255, 42, 127, 0.15), 0 0 6px rgba(255, 42, 127, 0.2); border-color: rgba(255, 42, 127, 0.4); }
+        }
 
         @media (max-width: 768px) {
-            .container { padding: 1rem; gap: 2rem; }
-            h1 { font-size: 2rem; }
-            .support-banner { padding: 1rem; }
-            .banner-inner { width: 100%; }
-            .banner-title { white-space: normal; }
-            .link-group { grid-template-columns: 1fr; width: 100%; }
-            .brutal-btn { width: 100%; text-align: center; }
-            .social-links a { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-            .link-label { width: 100%; }
-            .link-desc { margin-left: 0; }
-            .window-content { padding: 1.5rem 1rem; }
-            .modal-box { box-shadow: 6px 6px 0px var(--warning-yellow); }
-            .pay-tabs { grid-template-columns: 1fr; }
+            .support-banner { padding: 0.65rem 0.9rem !important; }
+            .banner-inner { flex-direction: column; align-items: center; gap: 0.5rem; }
+            .banner-title { text-align: center; font-size: 0.9rem; line-height: 1.25; }
+            
+            .link-group { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+            
+            .cyber-btn { width: 100%; padding: 0.5rem 0.3rem; font-size: 0.78rem; letter-spacing: 0px; text-align: center; white-space: nowrap; gap: 0.3rem; }
+            .btn-water-icon { height: 20px; }
+
+            .container { padding-top: calc(100px + 1.5rem) !important; padding-left: 1rem; padding-right: 1rem; gap: 2rem; }
+            h1 { font-size: 1.7rem; }
+
+            .social-matrix { grid-template-columns: 1fr; gap: 1rem; }
+            .card-shop     { order: 1; grid-column: 1; }
+            .card-bilibili { order: 2; grid-column: 1; }
+            .card-sub      { order: 3; grid-column: 1; }
+
+            .channel-card { animation: card-pulse 3.6s infinite ease-in-out; }
+            .social-matrix .card-shop     { animation-delay: 0s; }
+            .social-matrix .card-bilibili { animation-delay: 0.8s; }
+
+            .sub-links-container { padding: 0.2rem 0.2rem; gap: 0.45rem; }
+            .terminal-line-link { font-size: 0.76rem; }
+            .term-desc { font-size: 0.7rem; }
+
+            .window-content { padding: 1.2rem; }
+            .window-header { padding: 0.5rem 0.8rem; font-size: 0.72rem; letter-spacing: 0px; }
+            .window-path { font-size: 0.72rem; }
+            .window-mode { font-size: 0.72rem; }
+
+            .water-showcase-box { max-width: 250px; min-height: 230px; }
+            .qr-display { height: 520px; min-height: 520px; }
+
+            .pay-tabs { grid-template-columns: repeat(2, 1fr); gap: 0.4rem; }
+            .pay-tab { font-size: 0.75rem; padding: 0.4rem 0.1rem; }
+            .modal-body { padding: 1.1rem; }
+
+            .back-to-top { bottom: 1.5rem; right: 1.2rem; padding: 0.45rem 0.75rem; font-size: 0.75rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 投喂横幅区 (警告条纹) -->
+    <!-- 顶部高亮警戒条：钉死固定在浏览器顶部 -->
     <div class="support-banner">
         <div class="banner-inner">
-            <span class="banner-title">⚠ INITIATING SUPPORT PROTOCOL // 投喂快乐水和猫饭</span>
+            <div class="banner-title">
+                <span>投喂快乐水™ 猫粮<span class="banner-warning-sign">⚠</span></span>
+            </div>
+
             <div class="link-group">
-                <button class="brutal-btn" onclick="openModal('local')">🍞 国内通道 (支付宝/爱发电)</button>
-                <button class="brutal-btn" onclick="openModal('overseas')">🌍 海外时差党 (PayPal/刷卡)</button>
+                <button class="cyber-btn" onclick="openDonate('cn')">
+                    <img src="images/happy-water-lg.gif" alt="快乐水™" class="btn-water-icon" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><text x=\'50%25\' y=\'55%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'16\'>🥤</text></svg>'">
+                    国内投喂
+                </button>
+                <button class="cyber-btn" onclick="openDonate('os')">
+                    <img src="images/happy-water-lg.gif" alt="快乐水™" class="btn-water-icon" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><text x=\'50%25\' y=\'55%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'16\'>🥤</text></svg>'">
+                    海外赞助
+                </button>
             </div>
         </div>
     </div>
 
     <div class="container">
-        <!-- 头部 -->
-        <header>
-            <div class="subtitle">SYS.MSG: WELCOME TO THE BASE</div>
-            <h1>冷冷不冷的<br>黑心皮沙发工厂 <span class="kaomoji">_(:3」∠)_</span></h1>
-            <p style="font-weight: bold; opacity: 0.8;">[ 白天数字艺术家 / 深夜黑心厂长 ]</p>
+        <!-- 主头像与简介 -->
+        <header>                  
+            <div class="sys-tag">系统状态：霓虹网络 // 极限求生已激活</div>
+            <h1>冷冷不冷的皮沙发工厂</h1>
+            <p class="tagline">
+                白天是在神经网络里撸代码的数字艺术社畜；深夜是喝着快乐水™、伴随两只主子打呼噜声开发模拟游戏的赛博黑心厂长。
+            </p>
             
-            <div class="social-links">
-                <a href="https://space.bilibili.com/452768274" target="_blank">
-                    <span class="link-label">Bilibili 主站</span>
-                    <span class="link-desc">硬核冰盖生存 / 录播实况</span>
-                    <span class="arrow">►</span>
+            <!-- 跨平台实况矩阵 -->
+            <div class="social-matrix">
+                <!-- 1. Shop 商店 -->
+                <a href="shop.html" class="channel-card card-shop" style="border-color: rgba(0, 240, 255, 0.4);">
+                    <div class="channel-top">
+                        <span class="platform-name">商店</span>
+                        <span class="badge badge-blue">官方周边</span>
+                    </div>
+                    <p class="channel-desc">
+                        皮沙发工厂周边<br>
+                        实体周边、数字资产与工厂补给。
+                    </p>
                 </a>
-                <a href="https://afdian.com/a/lenglengbuleng" target="_blank">
-                    <span class="link-label">爱发电</span>
-                    <span class="link-desc">支持独立游戏开发与 MOD 更新</span>
-                    <span class="arrow">►</span>
+
+                <!-- 2. Bilibili -->
+                <a href="https://space.bilibili.com/452768274" target="_blank" class="channel-card card-bilibili">
+                    <div class="channel-top">
+                        <span class="platform-name">Bilibili</span>
+                        <span class="badge">高能切片</span>
+                    </div>
+                    <p class="channel-desc">
+                        赛博求生录播<br>
+                        原汁原味的无读档受虐回放与中文社区基地。
+                    </p>
                 </a>
-                <a href="https://lonp.pages.dev" target="_blank">
-                    <span class="link-label">猫窝</span>
-                    <span class="link-desc">厂长的赛博猫爬架 - 数字媒体与国际展历</span>
-                    <span class="arrow">►</span>
-                </a>
+
+                <!-- 3. 裸露终端指令代码 -->
+                <div class="sub-links-container card-sub">
+                    <a href="https://instagram.com/humanleathercouch" target="_blank" class="terminal-line-link">
+                        <span class="term-prefix pink-prefix">&gt;_</span>
+                        <span class="term-name">Instagram</span>
+                        <span class="term-desc">// 工厂动态快讯</span>
+                    </a>
+                    <a href="https://lonp.pages.dev" target="_blank" class="terminal-line-link">
+                        <span class="term-prefix blue-prefix">&gt;_</span>
+                        <span class="term-name">Portfolio</span>
+                        <span class="term-desc">// 厂长的赛博猫爬架</span>
+                    </a>
+                </div>
             </div>
         </header>
 
-        <!-- 碎碎念介绍 (视窗风格) -->
-        <section class="statement-window">
+        <!-- 终端文字区块 -->
+        <section class="terminal-window">
             <div class="window-header">
-                <span>C:\LONLON\readme.txt</span>
-                <span>_ □ X</span>
+                <span class="window-path">终端:~/工厂/宣言.md</span>
+                <span class="window-mode">[赛博求生]</span>
             </div>
             <div class="window-content">
-                <p style="font-size: 1.15rem;">欢迎来到冷冷的秘密基地！快拉张椅子坐下，喝口热茶吧~ <span class="kaomoji">_(:3」∠)_</span></p>
                 
                 <div class="log-section">
-                    <h3>>_ IDENTITY & PROJECT // 我是谁？我在创作什么？</h3>
-                    <p>白天，我是游走在海外展厅与代码之间的<span class="highlight-bg">数字艺术家</span>；深夜，我则化身沉迷在零下数十度极寒冰盖里的<span class="highlight-bg">黑心皮沙发厂长</span>。</p>
-                    <p>目前，我不仅致力于《环世界》的 C# 底层逻辑补丁开发，在 B 站直播【极端困难/不读档】的硬核受虐求生；同时，我也正在<span class="highlight-text">筹备开发一款属于自己的“模拟类独立游戏”！</span></p>
+                    <h3>>_ 01. 皮沙发工厂</h3>
+                    <div class="bilingual-block">
+                        <p class="lang-zh">
+                            欢迎光临皮沙发工厂。外头是残酷的赛博废土与极限边缘，但这里有冰凉的快乐水™和沉浸式的键盘白噪音。随便挑张沙发坐下吧——别问材质，这张<span class="highlight-neon">特级皮沙发</span>很软，它生前也是个喜欢空投骑脸的超龄海盗，现在它只想给你最温暖的拥抱。
+                        </p>
+                    </div>
+                    <div class="bilingual-block">
+                        <p class="lang-zh">
+                            在这里，我们用最温柔平静的心情，做着兰迪随机灭团边缘最冷酷的系统资源调配。<span class="highlight-blue">欢迎加入工厂，成为轮班兼职员工，一键三连不迷路。</span>如果你用苹果手机看到这里，记得确认浏览器设置有打开“播放所有动画”，就在底部网址左边的三条线那里设定。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 突发猫咪干扰事件 -->
+                <div class="cat-alert">
+                    <span class="cat-alert-title">⚠ 系统警告：遭遇物理级不可抗力</span>
+                    <span class="lang-zh" style="display: block; margin-bottom: 0.5rem;">
+                        当我正在冷静排查 C# 代码报错，或是部署杀人廊时，如果画面突然暂停或鼠标乱飘，那绝对是<strong>两只猫咪主子</strong>又踩在我的键盘上讨猫条了。请各位员工喝口快乐水™，等我交完这笔“保护费”安抚完主子，即刻恢复系统运作。
+                    </span>
                 </div>
 
                 <div class="log-section">
-                    <h3>>_ INITIATE SUPPORT // 为什么启动「支付宝投餵」和「爱发电」？</h3>
-                    <p>随着独立维护 C# 补丁的工作量日益庞大，加上新游戏开发所需的庞大精力与成本（经常深夜撸代码到头秃），开启投餵计画是希望在这漫长的“赛博求生与独立游戏筑梦”之旅中，能得到大家的一点点支持。</p>
-                    <p>你们投餵的每一口快乐水，都将直接化为厂长维持深夜除错的咖啡因浓度，更是<span class="highlight-text">支持我将这款模拟游戏从最初的纸上原型变成现实的最大动力！</span>
-                        当然，要是能顺便投餵一口猫饭，不但喂饱了这隻深夜加班的秃头小猫，还顺便包养了身边的两隻小猫咪，大概能一边呼噜噜一边当场把 Bug 全给修了吧～</p>
-                </div>
+                    <h3>>_ 02. 赛博求生与快乐水™投喂</h3>
+                    <div class="bilingual-block">
+                        <p class="lang-zh">
+                            随着独立维护 C# 补丁的工作量日益庞大，加上新游戏开发所需的庞大精力与成本（经常深夜在神经网络里撸代码到头秃），开启投喂计划是希望在这漫长的“赛博求生与独立模拟游戏制作”之旅中，能得到大家的一点点支持。
+                            <br><br>
+                            你们投喂的每一口快乐水™，都将直接化为厂长维持深夜除错的血肉咖啡因浓度，更是<span class="highlight-neon">支持我将这款模拟游戏从最初的纸上原型变成现实的最大动力！</span>
+                            当然，要是能顺便投喂一口猫条，不但喂饱了这只深夜加班的秃头小猫，还顺便包养了身边的两只小猫咪，大概能一边呼噜噜一边当场把系统 Bug 全给修了吧～
+                        </p>
+                    </div>
 
-                <div class="log-section">
-                    <h3>>_ REWARDS PROTOCOL // 赞助者可以得到什么奖励？</h3>
-                    <ul class="reward-list">
-                        <li><span class="reward-icon">☕</span> <strong>【厂长的冰盖纯电费】</strong><br>获得我发自内心的感谢，以及在极寒冬日里的一丝温暖！</li>
-                        <li><span class="reward-icon">🛠️</span> <strong>【专属动态与开发日志】</strong><br>解锁我在爱发电发布的幕后除错日常、硬核生存心得，以及未来新模拟游戏的专属开发日志（Devlog）、早期概念图纸与进度分享。</li>
-                        <li><span class="reward-icon">🎮</span> <strong>【未来游戏抢先看】</strong><br>等我的模拟游戏进入可游玩阶段后，在这里发电支持过厂长的<span class="highlight-bg">“精神股东”</span>们，绝对会有优先参与内部测试的机会啦！</li>
-                    </ul>
+                    <!-- 旋转快乐水 -->
+                    <div class="water-showcase-container">
+                        <div class="water-showcase-box">
+                            <div class="hud-corner hud-tl"></div>
+                            <div class="hud-corner hud-tr"></div>
+                            <div class="hud-corner hud-bl"></div>
+                            <div class="hud-corner hud-br"></div>
+                            <img src="images/happy-water-lg.gif" alt="旋转快乐水展示" class="water-img-lg" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'280\' height=\'280\' viewBox=\'0 0 280 280\'><rect width=\'280\' height=\'280\' fill=\'%230b0710\' stroke=\'%2300f0ff\' stroke-width=\'2\' stroke-dasharray=\'8 4\'/><text x=\'50%25\' y=\'44%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'72\'>🥤</text><text x=\'50%25\' y=\'70%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2300f0ff\' font-family=\'monospace\' font-size=\'13\' font-weight=\'bold\' letter-spacing=\'1\'>// 旋转快乐水 //</text><text x=\'50%25\' y=\'82%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%23ff2a7f\' font-family=\'monospace\' font-size=\'11\'>赛博补给展示区</text></svg>'">
+                        </div>
+                    </div>
                 </div>
-                
-                <p style="margin-top: 3rem; text-align: center; color: var(--gray-color);">不管是刚被我的代码拯救了存档的硬核殖民长官、在直播间安静挂机听风雪的同好、在展览中对我的录像产生共鸣的观众，还是期待我未来独立游戏的新朋友——</p>
-                <p style="text-align: center; font-weight: bold; font-size: 1.2rem; color: var(--bili-pink); margin-top: 0.5rem;">
-                    都非常感谢你能来到这里抱团取暖！<span class="kaomoji">(=・ω・=)m</span>
-                </p>
             </div>
         </section>
 
         <footer>
-            <p>点个关注不迷路，我们直播间见啦！<br>
-            <span style="font-weight: 300;">&copy; 2026 lonlon. SYSTEM NORMAL.</span></p>
+            <p>
+                冷冷不冷的沙发工厂<br>
+                <span style="font-size: 0.75rem; letter-spacing: 1px; color: var(--cyber-pink);">来自赛博废土的信号 传输正常 &copy; 2026.</span>
+            </p>
         </footer>
     </div>
 
@@ -389,121 +743,211 @@
     <div id="donateModal" class="modal-overlay" onclick="if(event.target === this) closeModal()">
         <div class="modal-box">
             <div class="modal-header">
-                <h2>☕ FEED THE FACTORY</h2>
-                <button class="close-btn" onclick="closeModal()">X</button>
+                <h2 id="modalHeaderTitle">🥤 国内投喂快乐水™与猫粮</h2>
+                <button class="close-btn" onclick="closeModal()">✕</button>
             </div>
 
             <div class="modal-body">
-                <div id="local-tabs" style="display: none;">
-                    <div class="pay-tabs">
-                        <button class="pay-tab active" onclick="switchPay('alipay', this)">[ 支付宝 ]</button>
-                        <button class="pay-tab" onclick="switchPay('afdian', this)">[ 爱发电 ]</button>
-                    </div>
-                </div>
-
-                <div id="overseas-tabs" style="display: none;">
-                    <div class="pay-tabs">
-                        <button class="pay-tab active" onclick="switchPay('paypal', this)">[ PayPal ]</button>
-                        <button class="pay-tab" onclick="switchPay('newebpay', this)">[ 蓝新刷卡 ]</button>
-                    </div>
-                </div>
-
-                <div class="qr-display">
-                    <img id="qr-img" src="" alt="收款码">
+                <!-- STEP 1 支付选项 -->
+                <div>
+                    <p style="font-size: 0.88rem; font-weight: bold; margin-bottom: 0.8rem; color: var(--cyber-blue);">STEP 1. 选择支付方式：</p>
                     
-                    <!-- 手机端唤起支付寶 APP 专用按钮 -->
-                    <div id="alipay-btn-wrap" style="display:none; width: 100%;">
-                        <a href="https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4" target="_blank" class="app-launch-btn">📱 手机端点击唤起支付宝 APP ↗</a>
+                    <!-- 国内选项 -->
+                    <div class="pay-tabs" id="cnPayTabs">
+                        <button type="button" class="pay-tab active" onclick="switchSupportQR('alipay', this)">支付宝</button>
+                        <button type="button" class="pay-tab" onclick="switchSupportQR('afdian', this)">爱发电</button>
                     </div>
 
-                    <!-- 纯外连专用跳转按钮 (爱发电 / PayPal / 蓝新) -->
-                    <div id="btn-wrap" style="display:none; padding: 1rem 0;">
-                        <a id="jump-link" href="#" target="_blank" class="jump-btn">LAUNCH LINK ↗</a>
+                    <!-- 海外选项 (独立显示) -->
+                    <div class="pay-tabs" id="osPayTabs" style="display: none;">
+                        <button type="button" class="pay-tab active" onclick="switchSupportQR('paypal', this)">PayPal<br>Ko-fi</button>
+                        <button type="button" class="pay-tab" onclick="switchSupportQR('newebpay_os', this)">信用卡<br>Apple Pay</button>
                     </div>
-                    <p id="qr-hint" class="qr-hint"></p>
+
+                    <div class="qr-display mode-qr" style="margin-top: 1rem;">
+                        <img id="supportQrImage" alt="QR Code">
+                        
+                        <div id="supportQrHint"></div>
+
+                        <a id="actionBtn" href="#" target="_blank"></a>
+                    </div>
                 </div>
+
+                <!-- STEP 2 留言表单 -->
+                <form class="support-form" onsubmit="submitSupportMessage(event)">
+                    <p style="font-size: 0.88rem; font-weight: bold; color: var(--cyber-pink);">STEP 2. 留下你的信息与想说的话（选填）：</p>
+                    
+                    <div class="form-group">
+                        <label>你的名字或昵称 (选填)</label>
+                        <input type="text" id="supporterName" placeholder="匿名支持者">
+                    </div>
+
+                    <div class="form-group">
+                        <label>联系邮箱 (选填)</label>
+                        <input type="email" id="supporterEmail" placeholder="若希望收到回信可填写">
+                    </div>
+
+                    <div class="form-group">
+                        <label>想和我说的悄悄话 (选填)</label>
+                        <textarea id="supporterMessage" rows="3" placeholder="无论是关于版画创作、RimWorld 模组或直播的感想都欢迎留言..."></textarea>
+                    </div>
+
+                    <button type="submit" class="cyber-btn" style="width: 100%; padding: 0.8rem; margin-top: 0.5rem; text-align: center;">
+                        [ 寄出留言信件 ]
+                    </button>
+                </form>
             </div>
         </div>
     </div>
 
+    <!-- 回到顶部按钮 -->
+    <button id="backToTop" class="back-to-top" onclick="scrollToTop()" aria-label="返回顶部">↑ 顶部</button>
+
     <script>
-        // 收款渠道设定
-        const PAY_METHODS = {
-            alipay: {
-                type: 'qr',
-                img: 'images/qr-alipay.jpg', // 你的支付宝收款码
-                hint: '打开支付宝扫一扫上方二维码。<br>金额不限，感谢你的投喂与支持！(╭￣3￣)╭♡'
+        const SUPPORT_QR_CODES = {
+            alipay: { 
+                type: "qr", 
+                img: "images/qr-alipay.jpg", 
+                hint: "请使用支付宝扫描上方二维码，金额不限，每一份支持都是推动我持续创作的动力。",
+                url: "https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4",
+                btnText: "手机端请点击这里唤起 APP 跳转 ↗"
             },
-            afdian: {
-                type: 'link',
-                url: 'https://afdian.com/a/lenglengbuleng', // 你的爱发电地址
-                hint: '推荐使用「爱发电」！支持微信、支付宝，还可以解锁专属更新动态和製作游戏抢先体验喔！'
+            afdian: { 
+                type: "link", 
+                url: "https://afdian.com/a/lenglengbuleng", 
+                btnText: "前往爱发电安全页面 ↗", 
+                hint: "点击下方按钮前往爱发电主页，金额不限，每一份支持都是推动我持续创作的动力。" 
             },
-            paypal: {
-                type: 'link',
-                url: 'https://ko-fi.com/lonsthx',
-                hint: '海外党请点击上方按钮前往 Ko-fi，支持 PayPal 与国际信用卡。<br>Every little bit helps! ☕'
+            newebpay_os: { 
+                type: "link", 
+                url: "请在这里贴上你的蓝新收款网址", 
+                btnText: "前往蓝新安全支付页面 ↗", 
+                hint: "点击下方按钮前往蓝新金流安全支付页面，支持跨国信用卡与 Apple Pay，金额不限，每一份支持都是推动我持续创作的动力。" 
             },
-            newebpay: {
-                type: 'link',
-                url: 'https://你的蓝新网址', // 蓝新地址
-                hint: '通过蓝新金流安全支付，支持跨国信用卡与 Apple Pay。'
+            paypal: { 
+                type: "link", 
+                url: "https://ko-fi.com/lonsthx", 
+                btnText: "前往 Ko-fi / PayPal 页面 ↗", 
+                hint: "点击下方按钮前往 Ko-fi 页面，支持 PayPal 与跨国信用卡，金额不限，每一份支持都是推动我持续创作的动力。" 
             }
         };
 
-        function openModal(region) {
-            document.getElementById('donateModal').classList.add('active');
-            const localTabs = document.getElementById('local-tabs');
-            const overseasTabs = document.getElementById('overseas-tabs');
-            
-            // 重置按钮状态
-            document.querySelectorAll('.pay-tab').forEach(btn => btn.classList.remove('active'));
+        let currentPayMethod = '支付宝';
 
-            if (region === 'local') {
-                localTabs.style.display = 'block';
-                overseasTabs.style.display = 'none';
-                localTabs.querySelector('.pay-tab').classList.add('active');
-                switchPay('alipay');
-            } else {
-                localTabs.style.display = 'none';
-                overseasTabs.style.display = 'block';
-                overseasTabs.querySelector('.pay-tab').classList.add('active');
-                switchPay('paypal');
+        function loadQrWithFallback(imgEl, basePath) {
+            const rawPath = basePath.replace(/\.(jpg|jpeg|png|webp)$/i, '');
+            const extMatch = basePath.match(/\.(jpg|jpeg|png|webp)$/i);
+            const originalExt = extMatch ? extMatch[0].toLowerCase() : '.jpg';
+
+            const candidates = [
+                basePath,
+                originalExt === '.jpg' ? rawPath + '.png' : rawPath + '.jpg',
+                rawPath + '.jpeg',
+                rawPath + '.webp',
+                basePath.replace(/^images\//, ''),
+                basePath.replace(/^images\//, '').replace(/\.(jpg|jpeg|png|webp)$/i, '.png'),
+                basePath.replace(/^images\//, 'images/images')
+            ];
+
+            let idx = 0;
+            function tryNext() {
+                if (idx < candidates.length) {
+                    const nextSrc = candidates[idx++];
+                    imgEl.onerror = tryNext;
+                    imgEl.src = nextSrc;
+                } else {
+                    imgEl.onerror = null;
+                    imgEl.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180"><rect width="100%" height="100%" fill="%23fff"/><text x="50%" y="45%" fill="%23d91153" font-family="monospace" font-size="13" font-weight="bold" text-anchor="middle">找不到 QR CODE</text><text x="50%" y="62%" fill="%23666" font-family="monospace" font-size="11" text-anchor="middle">请确认图档已放入 images</text></svg>';
+                }
             }
+            tryNext();
+        }
+
+        function openDonate(regionKey) {
+            const modal = document.getElementById('donateModal');
+            const title = document.getElementById('modalHeaderTitle');
+            const cnTabs = document.getElementById('cnPayTabs');
+            const osTabs = document.getElementById('osPayTabs');
+
+            if (regionKey === 'cn') {
+                title.textContent = '🥤 国内投喂快乐水™与猫粮';
+                cnTabs.style.display = 'grid';
+                osTabs.style.display = 'none';
+                const firstBtn = cnTabs.querySelector('.pay-tab');
+                switchSupportQR('alipay', firstBtn);
+            } else {
+                title.textContent = '🥤 海外赞助快乐水™';
+                cnTabs.style.display = 'none';
+                osTabs.style.display = 'grid';
+                const firstBtn = osTabs.querySelector('.pay-tab');
+                switchSupportQR('paypal', firstBtn);
+            }
+
+            modal.classList.add('active');
         }
 
         function closeModal() {
             document.getElementById('donateModal').classList.remove('active');
         }
 
-        function switchPay(method, btnEl) {
-            if (btnEl) {
-                document.querySelectorAll('.pay-tab').forEach(btn => btn.classList.remove('active'));
-                btnEl.classList.add('active');
-            }
-
-            const data = PAY_METHODS[method];
-            const imgEl = document.getElementById('qr-img');
-            const btnWrap = document.getElementById('btn-wrap');
-            const alipayBtnWrap = document.getElementById('alipay-btn-wrap');
-            const jumpLink = document.getElementById('jump-link');
-            const hintEl = document.getElementById('qr-hint');
-
+        function switchSupportQR(type, btn) {
+            document.querySelectorAll('#donateModal .pay-tab').forEach(el => el.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+            
+            currentPayMethod = btn ? btn.innerText.replace(/\n/g, ' ') : type;
+            
+            const data = SUPPORT_QR_CODES[type];
+            const imgEl = document.getElementById('supportQrImage');
+            const actionBtn = document.getElementById('actionBtn');
+            const qrDisplay = document.querySelector('.qr-display');
+            
             if (data.type === 'link') {
                 imgEl.style.display = 'none';
-                if (alipayBtnWrap) alipayBtnWrap.style.display = 'none';
-                btnWrap.style.display = 'block';
-                jumpLink.href = data.url;
+                qrDisplay.classList.add('mode-link');
+                qrDisplay.classList.remove('mode-qr');
             } else {
                 imgEl.style.display = 'block';
-                btnWrap.style.display = 'none';
-                imgEl.src = data.img;
-                // 若为支付宝，则额外显示手机端唤起按钮
-                if (alipayBtnWrap) {
-                    alipayBtnWrap.style.display = (method === 'alipay') ? 'block' : 'none';
-                }
+                loadQrWithFallback(imgEl, data.img);
+                qrDisplay.classList.add('mode-qr');
+                qrDisplay.classList.remove('mode-link');
             }
-            hintEl.innerHTML = data.hint;
+            
+            document.getElementById('supportQrHint').innerHTML = data.hint;
+            actionBtn.href = data.url;
+            actionBtn.innerHTML = data.btnText;
+        }
+
+        function submitSupportMessage(e) {
+            e.preventDefault();
+            const name = document.getElementById('supporterName').value.trim() || '匿名支持者';
+            const email = document.getElementById('supporterEmail').value.trim() || '未提供';
+            const message = document.getElementById('supporterMessage').value.trim() || '（无额外留言，纯赞助支持 🥤）';
+
+            const subject = encodeURIComponent(`[赞助与留言] 来自 ${name} 的支持`);
+            const body = encodeURIComponent(
+`冷冷你好，我已透过「${currentPayMethod}」完成赞助！
+
+【支持者昵称】${name}
+【联系邮箱】${email}
+【想对你说的话】
+${message}
+`
+            );
+
+            window.location.href = `mailto:arts.lonp@gmail.com?subject=${subject}&body=${body}`;
+            closeModal();
+        }
+
+        const backToTopBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
