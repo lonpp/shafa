@@ -756,6 +756,7 @@
                     <!-- 国内选项 -->
                     <div class="pay-tabs" id="cnPayTabs">
                         <button type="button" class="pay-tab active" onclick="switchSupportQR('alipay', this)">支付宝</button>
+                        <button type="button" class="pay-tab" onclick="switchSupportQR('wechat', this)">微信支付</button>
                         <button type="button" class="pay-tab" onclick="switchSupportQR('afdian', this)">爱发电</button>
                     </div>
 
@@ -812,6 +813,13 @@
                 hint: "请使用支付宝扫描上方二维码，金额不限，每一份支持都是推动我持续创作的动力。",
                 url: "https://qr.alipay.com/tsx19374p5wcn9a7dp9dwe4",
                 btnText: "手机端请点击这里唤起 APP 跳转 ↗"
+            },
+            wechat: { 
+                type: "qr", 
+                img: "images/qr-wechat.jpg", 
+                hint: "请使用微信扫描上方二维码，金额不限，每一份支持都是推动我持续创作的动力。",
+                url: "",
+                btnText: ""
             },
             afdian: { 
                 type: "link", 
@@ -914,8 +922,9 @@
             }
             
             document.getElementById('supportQrHint').innerHTML = data.hint;
-            actionBtn.href = data.url;
+            actionBtn.href = data.url || '#';
             actionBtn.innerHTML = data.btnText;
+            actionBtn.style.display = data.url ? '' : 'none';
         }
 
         function submitSupportMessage(e) {
